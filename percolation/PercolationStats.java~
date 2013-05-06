@@ -1,0 +1,138 @@
+public class PercolationStats {
+
+    int         times;          // count of T
+    int         arrayNum;
+    int[]       results;        // save the every time 's result to
+                                // calc stddev.
+    Percolation perc;
+                                               
+    
+    // perform T independent computational experiments on an N-by-N grid
+   public PercolationStats(int N, int T)    
+    {
+        arrayNum = N;
+        times = T;
+        results = new int[T];
+
+
+        startTest();
+    }
+
+    private boolean percIsOpen(int index, Percolation perc)
+    {
+        int i, j;
+
+        j = index / arrayNum;
+        i = index % arrayNum;
+        return perc.isOpen(i, j);
+    }
+
+    private void percOpen(int index, Percolation  perc)
+    {
+        int i, j;
+                
+        j = index / arrayNum;
+        i = index % arrayNum;
+
+        perc.open(i, j);
+    }
+
+    public void startTest()
+    {
+        int totalSize = arrayNum * arrayNum;
+        for (int round = 0 ; round < times; round++) {
+            int t = 0;
+            perc = new Percolation(arrayNum);
+
+            StdOut.printf("start round:%d", round);
+            int tc = 0;
+            while(tc++ < totalSize) {
+                do {
+                    int n = StdRandom.uniform(totalSize);
+                } while (!percIsOpen(n, perc));
+                
+                StdOut.printf("Open: %d\n", n);
+                percOpen(n, perc);
+                if (tc++ == 1000)
+                    perc.dumpOpen();
+                if (perc.percolates()) {
+                    results[round] = (perc.count() / totalSize);
+                    break;
+                }
+            }
+
+            // If failed with no percolates, rerun.
+            if (tc >= totalSize)  {
+                --round;
+                StdOut.printf("failed, retry\n");
+            }
+        }
+    }
+    // sample mean of percolation threshold
+    public double mean()
+    {
+        long sum = 0;
+        for (int i = 0; i < arrayNum; i++) {
+            sum += results[i];
+        }
+
+        return (sum / arrayNum) / arrayNum;
+    }
+
+    // sample standard deviation of percolation threshold
+    public double stddev()
+    {
+        double meanVal = mean();
+        double stddevVal = 0.0;
+
+        for (int i = 0; i < arrayNum; i++) {
+            stddevVal += Math.sqrt((results[i] - meanVal));
+        }
+
+        stddevVal /= (arrayNum - 1);
+
+        return stddevVal;
+    }
+
+    // test client, described below
+   public static void main(String[] args)
+    {
+
+        int n = Integer.parseInt(args[0]);
+        int t = Integer.parseInt(args[1]);
+
+        StdOut.printf("n:%d t:%d", n, t);
+        
+        PercolationStats percstat = new PercolationStats(n, t);
+        StdOut.printf("mean\t = %g\n", percstat.mean());
+        StdOut.printf("stddev\t = %g\n", percstat.stddev());
+    
+        
+    }
+}
+
+/*
+
+  the output should be:
+
+  % java PercolationStats 200 100
+mean                    = 0.5929934999999997
+stddev                  = 0.00876990421552567
+95% confidence interval = 0.5912745987737567, 0.5947124012262428
+
+% java PercolationStats 200 100
+mean                    = 0.592877
+stddev                  = 0.009990523717073799
+95% confidence interval = 0.5909188573514536, 0.5948351426485464
+
+
+% java PercolationStats 2 10000
+mean                    = 0.666925
+stddev                  = 0.11776536521033558
+95% confidence interval = 0.6646167988418774, 0.6692332011581226
+
+% java PercolationStats 2 100000
+mean                    = 0.6669475
+stddev                  = 0.11775205263262094
+95% confidence interval = 0.666217665216461, 0.6676773347835391
+ */
