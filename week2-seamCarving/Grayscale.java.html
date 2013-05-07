@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="icon"          href="http://introcs.cs.princeton.edu/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico" type="image/x-icon">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Grayscale.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Grayscale code in Java">
+<meta NAME="TITLE" CONTENT="Grayscale code in Java">
+<meta NAME="KEYWORDS" CONTENT="Grayscale,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Grayscale.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Grayscale.java">Grayscale.java</a>
+from <a href = "http://introcs.cs.princeton.edu/31datatype">&#167;3.1 Using Data Types</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 2.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/*************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Grayscale.java</span>
+<span class="comment"> *  Execution:    java Grayscale filename</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Reads in an image from a file, converts it to grayscale, and</span>
+<span class="comment"> *  displays it on the screen.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Grayscale image.jpg</span>
+<span class="comment"> *</span>
+<span class="comment"> *************************************************************************/</span>
+
+<span class="preproc">import</span><span class="normal"> java</span><span class="symbol">.</span><span class="normal">awt</span><span class="symbol">.</span><span class="normal">Color</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> Grayscale </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        Picture pic </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">Picture</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> width  </span><span class="symbol">=</span><span class="normal"> pic</span><span class="symbol">.</span><span class="function">width</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> height </span><span class="symbol">=</span><span class="normal"> pic</span><span class="symbol">.</span><span class="function">height</span><span class="symbol">();</span>
+
+<span class="normal">        </span><span class="comment">// convert to grayscale</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> x </span><span class="symbol">&lt;</span><span class="normal"> width</span><span class="symbol">;</span><span class="normal"> x</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> y </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> y </span><span class="symbol">&lt;</span><span class="normal"> height</span><span class="symbol">;</span><span class="normal"> y</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                Color color </span><span class="symbol">=</span><span class="normal"> pic</span><span class="symbol">.</span><span class="function">get</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">);</span>
+<span class="normal">                Color gray </span><span class="symbol">=</span><span class="normal"> Luminance</span><span class="symbol">.</span><span class="function">toGray</span><span class="symbol">(</span><span class="normal">color</span><span class="symbol">);</span>
+<span class="normal">                pic</span><span class="symbol">.</span><span class="function">set</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal"> gray</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        pic</span><span class="symbol">.</span><span class="function">show</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2010, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Wed Feb  9 09:07:43 EST 2011.
+</small></address>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="icon"          href="http://introcs.cs.princeton.edu/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico" type="image/x-icon">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Luminance.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Luminance code in Java">
+<meta NAME="TITLE" CONTENT="Luminance code in Java">
+<meta NAME="KEYWORDS" CONTENT="Luminance,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Luminance.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Luminance.java">Luminance.java</a>
+from <a href = "http://introcs.cs.princeton.edu/31datatype">&#167;3.1 Using Data Types</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 2.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/*************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Luminance.java</span>
+<span class="comment"> *  Execution:    java Luminance r1 g1 b1 r2 g2 b2</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Library for dealing with monochrome luminance. </span>
+<span class="comment"> *  Uses the NTSC formula  Y = .299*r + .587*g + .114*b.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Luminance 0 0 0 0 0 255</span>
+<span class="comment"> *</span>
+<span class="comment"> *************************************************************************/</span>
+
+<span class="preproc">import</span><span class="normal"> java</span><span class="symbol">.</span><span class="normal">awt</span><span class="symbol">.</span><span class="normal">Color</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> Luminance </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="comment">// return the monochrome luminance of given color</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">double</span><span class="normal"> </span><span class="function">lum</span><span class="symbol">(</span><span class="normal">Color color</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> color</span><span class="symbol">.</span><span class="function">getRed</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> g </span><span class="symbol">=</span><span class="normal"> color</span><span class="symbol">.</span><span class="function">getGreen</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> b </span><span class="symbol">=</span><span class="normal"> color</span><span class="symbol">.</span><span class="function">getBlue</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> </span><span class="symbol">.</span><span class="number">299</span><span class="symbol">*</span><span class="normal">r </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">.</span><span class="number">587</span><span class="symbol">*</span><span class="normal">g </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">.</span><span class="number">114</span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// return a gray version of this Color</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> Color </span><span class="function">toGray</span><span class="symbol">(</span><span class="normal">Color color</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> y </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Math</span><span class="symbol">.</span><span class="function">round</span><span class="symbol">(</span><span class="function">lum</span><span class="symbol">(</span><span class="normal">color</span><span class="symbol">)));</span><span class="normal">   </span><span class="comment">// round to nearest int</span>
+<span class="normal">        Color gray </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">Color</span><span class="symbol">(</span><span class="normal">y</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> gray</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// are the two colors compatible?</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">boolean</span><span class="normal"> </span><span class="function">compatible</span><span class="symbol">(</span><span class="normal">Color a</span><span class="symbol">,</span><span class="normal"> Color b</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> Math</span><span class="symbol">.</span><span class="function">abs</span><span class="symbol">(</span><span class="function">lum</span><span class="symbol">(</span><span class="normal">a</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="function">lum</span><span class="symbol">(</span><span class="normal">b</span><span class="symbol">))</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">128.0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// test client</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="symbol">[]</span><span class="normal"> a </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">int</span><span class="symbol">[</span><span class="number">6</span><span class="symbol">];</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">6</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            a</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        Color c1 </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">Color</span><span class="symbol">(</span><span class="normal">a</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">],</span><span class="normal"> a</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">],</span><span class="normal"> a</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">]);</span>
+<span class="normal">        Color c2 </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">Color</span><span class="symbol">(</span><span class="normal">a</span><span class="symbol">[</span><span class="number">3</span><span class="symbol">],</span><span class="normal"> a</span><span class="symbol">[</span><span class="number">4</span><span class="symbol">],</span><span class="normal"> a</span><span class="symbol">[</span><span class="number">5</span><span class="symbol">]);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"c1 = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> c1</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"c2 = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> c2</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"lum(c1) =  "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="function">lum</span><span class="symbol">(</span><span class="normal">c1</span><span class="symbol">));</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"lum(c2) =  "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="function">lum</span><span class="symbol">(</span><span class="normal">c2</span><span class="symbol">));</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="function">compatible</span><span class="symbol">(</span><span class="normal">c1</span><span class="symbol">,</span><span class="normal"> c2</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2010, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Wed Feb  9 09:07:43 EST 2011.
+</small></address>
+
+</html>
